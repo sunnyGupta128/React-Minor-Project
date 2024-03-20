@@ -26,7 +26,7 @@ function TodoItem({todo}) {
         onChange={(e)=>setTodoMsg(e.target.value)} 
         readOnly={!isEditable} />
 
-        <button className='inline-flex w-8 h-8 rounded-lg bg-gray-50  text-sm border border-black/10 justify-center items-center  hover:bg-gray-200 shrink-0 disabled:opacity-50 ' 
+        <button className='inline-flex w-8 h-8 rounded-lg bg-gray-50 mx-2 text-sm border border-black/10 justify-center items-center  hover:bg-gray-200 shrink-0 disabled:opacity-50 ' 
         onClick={()=>{
             if(todo.complete) return;
 
