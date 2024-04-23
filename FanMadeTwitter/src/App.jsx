@@ -4,7 +4,9 @@ import './App.css'
 import { useDispatch } from 'react-redux'
 import { login, logout } from './store/authSlice'
 import authService from './appwrite/auth'
-
+import { Outlet } from 'react-router-dom'
+import Footers from './components/Footers/Footers'
+import Headers from './components/Headers/Headers'
 
 function App() {
   
@@ -19,15 +21,20 @@ function App() {
         dispatch(logout())
       }
       
-    }).finally(()=>{
-      setLoading(false)
-    
-    })
-  }, [third])
+    }).finally(()=>setLoading(false))
+  }, [])
   
 
   return !loading ? (
-    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>hello</div>
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div className="w-full block">
+        <Headers/>
+        <main>
+          Todo: <Outlet/> 
+        </main>
+        <Footers/>
+      </div>
+    </div>
   ): null
 }
 

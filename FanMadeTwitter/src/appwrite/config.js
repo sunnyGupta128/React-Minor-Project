@@ -33,7 +33,7 @@ export class Servive{
         }
     }
 
-    async updateDocument(slug ,{featureImage, content, title, status, userId}){
+    async updatePost(slug ,{featureImage, content, title, status}){
         try {
             return await this.database.updateDocument(
                 conf.appwriteDatabaseId,
@@ -43,7 +43,6 @@ export class Servive{
                     title,
                     status,
                     featureImage,
-                    userId,
                     content
                 }
             )
@@ -52,7 +51,7 @@ export class Servive{
         }
     }
 
-    async deleteDocument(slug){
+    async deletePost(slug){
         try {
             await this.database.deleteDocument(
                conf.appwriteDatabaseId,
@@ -63,8 +62,8 @@ export class Servive{
             return true
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser:: error",  error);
+            return false
         }
-        return false
 
     }
 
@@ -75,7 +74,7 @@ export class Servive{
                 conf.appwriteCollectionId,
                 slug
             )
-            return true
+            
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser:: error",  error);
             return false;
@@ -96,7 +95,7 @@ export class Servive{
     }
 
     // file upload service
-    async fileUpload(file){
+    async uploadFile(file){
         try {
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
@@ -119,6 +118,7 @@ export class Servive{
           return true;
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser:: error",  error);
+            return false;
         }
     }
 
