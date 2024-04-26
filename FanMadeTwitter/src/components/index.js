@@ -8,6 +8,10 @@ import Post from "./Post";
 import Select from "./Select";
 import Button from "./Button";
 import Input from "./Input";
+import Signup from "./Signup";
+import Login from "./Login";
+import PostForm from "./Post-Form/PostForm";
+import PostCard from "./PostCard";
 
 
 
@@ -22,5 +26,9 @@ export {
     Select,
     Button,
     Input,
+    Signup,
+    Login,
+    PostForm,
+    PostCard,
 
 }
