@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
-import { login as authLogin } from '../store/authSlice'
-import {Button, Input, Logo} from '../components'
 import {Link, useNavigate} from 'react-router-dom'
+import { login as authLogin } from '../store/authSlice'
+import {Button, Input, Logo} from './index'
+import { useDispatch } from 'react-redux'
 import authService from '../appwrite/auth'
 import { useForm } from 'react-hook-form'
 
@@ -13,15 +13,14 @@ function Login() {
     const [error, setError] = useState("");
 
     const login=async(data)=>{
-        setError("");
+        setError("")
         try {
             const session = await authService.login(data);
             if(session){
                 const userData=await authService.getCurrentUser();
-                if(userData){
-                    dispatch(authLogin(userData))
-                    navigate('/')
-                }
+                if(userData) dispatch(authLogin(userData));
+                navigate('/')
+                
             }
 
         } catch (error) {
@@ -32,6 +31,7 @@ function Login() {
     <div
     className='mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10'
     >
+        
         <div className='mb-2 flex justify-center'>
             <span className='inline-block w-full max-w-[100px]'>
                 <Logo  width='100%'/>
@@ -49,8 +49,8 @@ function Login() {
             >Sign Up</Link>
         </p>
         {error && <p className='text-red-600 text-center mt-8' >{error}</p>}
-        <form onSubmit={handleSubmit(login)}>
-            <div>
+        <form onSubmit={handleSubmit(login)} className='mt-8'>
+            <div className='space-y-5'>
                 <Input
                 label='Email: '
                 placeholder='Enter your email'
@@ -58,7 +58,7 @@ function Login() {
                 {...register('email', {
                     required: true,
                     validate: {
-                        matchPattern: (value) => /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/.test(value)|| 'Invalid email address'
+                        matchPattern: (value) =>  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) || 'Invalid email address'
                     }
                 })}
                 />
@@ -68,7 +68,7 @@ function Login() {
                 type='password'
                 {...register('password', {
                     required: true,
-                    minLength: 6
+                    
                 })}
                 />
                 <Button
